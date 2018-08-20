@@ -1,0 +1,27 @@
+{
+  "name": "lnd_lib",
+  "version": "0.1.0",
+  "description": "Node wrapper lib for lnd rpc calls.",
+  "main": "lndlib.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/interledgerjs/lnd-lib.git"
+  },
+  "keywords": [
+    "lnd",
+    "lightning"
+  ],
+  "author": "Gavin Marshall",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/interledgerjs/lnd-lib/issues"
+  },
+  "homepage": "https://github.com/interledgerjs/lnd-lib#readme",
+  "dependencies": {
+    "@grpc/proto-loader": "^0.3.0",
+    "grpc": "^1.14.1"
+  }
+}
