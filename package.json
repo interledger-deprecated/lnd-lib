@@ -1,6 +1,6 @@
 {
   "name": "lnd-lib",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Node wrapper lib for lnd rpc calls.",
   "main": "index.js",
   "scripts": {
