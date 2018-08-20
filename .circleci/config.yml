@@ -13,6 +13,11 @@ jobs:
   test:
     <<: *defaults  
     steps:
+
+      - run:
+          name: Setup NPM for global installs to home directory
+          command: npm set prefix=$HOME/npm
+
       - checkout
 
       - restore_cache:
@@ -21,26 +26,26 @@ jobs:
             - "node-v1-{{ .Branch }}-{{ checksum \"package-lock.json\" }}"
             - "node-v1-{{ .Branch }}-"
             - "node-v1-"
+
+      - run:
+          name: Install Greenkeeper-Lockfile
+          command: npm install -g greenkeeper-lockfile
+
+      - run:
+          name: Update Lockfile (Greenkeeper)
+          command: $HOME/npm/bin/greenkeeper-lockfile-update
           
       - run:
           name: Install
           command: npm install
 
       - run:
-          name: Install Greenkeeper-Lockfile
-          command: sudo npm install -g greenkeeper-lockfile
-
-      - run:
-          name: Update Lockfile (Greenkeeper)
-          command: greenkeeper-lockfile-update
-
-      - run:
-          name: Run tests
-          command: npm test
+          name: Lint
+          command: npm run lint
 
       - run:
           name: Upload Lockfile (Greenkeeper)
-          command: greenkeeper-lockfile-upload
+          command: $HOME/npm/bin/greenkeeper-lockfile-upload
 
       - save_cache:
           paths:
