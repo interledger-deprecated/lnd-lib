@@ -77,7 +77,7 @@ Returns the wallet's balance (total utxos, confirmed and unconfirmed).
 ```
 Lightning.walletBalance().then((resp)=>{
  	.... 
-});
+})
 ```
 
 
@@ -87,7 +87,7 @@ Generates a new wallet address.
 ```
 Lightning.newAddress(addressType).then((resp)=>{
  	.... 
-});
+})
 ```
 
 `[addressType]`:
@@ -108,7 +108,7 @@ Returns a list of all connected peers.
  ```
  Lightning.listPeers().then((resp)=>{
  	.... 
-});
+})
  ```
 
 
@@ -131,7 +131,7 @@ Lightning.openChannel(
   statusCallback
 ).then((resp)=>{
  	.... 
-});
+})
 ```
 
 * `[nodePubkey]` TODO
@@ -153,7 +153,7 @@ Returns the total channel balance for all open channels.
 ```
 Lightning.channelBalance().then((resp)=>{
  	.... 
-});
+})
 ```
 
 #### listChannels
@@ -162,7 +162,7 @@ Returns a list of all open channels.
 ```
 Lightning.listChannels().then((resp)=>{
  	.... 
-});
+})
 ```
 
 #### addInvoice
@@ -171,7 +171,7 @@ Adds a new invoice, expressing intent for a future payment.
 ```
 Lightning.addInvoice({amt}).then((resp)=>{
  	.... 
-});
+})
 ```
 
 * `[amt]` TODO
@@ -182,7 +182,7 @@ Decodes a payment request.
 ```
 Lightning.decodePayReq({payReq}).then((resp)=>{
  	.... 
-});
+})
 ```
 
 * `[payReq]` TODO
@@ -193,7 +193,7 @@ Sends a payment over Lightning.
 ```
 Lightning.sendPayment({payReq}).then((resp)=>{
  	.... 
-});
+})
 ```
 
 * `[payReq]` TODO
@@ -205,7 +205,7 @@ Returns the latest authenticated state for a particular channel.
 ```
 Lightning.getChanInfo({chanId}).then((resp)=>{
  	.... 
-});
+})
 ```
 
 * `[chanId]` TODO
@@ -224,7 +224,7 @@ Lightning.closeChannel(
   }
 ).then((resp)=>{
  	.... 
-});
+})
 ```
 
 * `[chanId]` TODO
@@ -240,7 +240,7 @@ Disconnects from an existing peer.
 ```
 Lightning.disconnect({pubKey}).then((resp)=>{
  	.... 
-});
+})
 ```
 
 * `[pubKey]` TODO
