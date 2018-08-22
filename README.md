@@ -32,7 +32,7 @@ const Lightning = new lndLib.Lightning(args);
 
 ## Methods
 
-### initialize
+#### initialize
 
 Fetches certificate, rpc.proto etc. and creates sets up an RPC connection to LND.  
 
@@ -42,7 +42,7 @@ Lightning.initialize().then((resp)=>{
 })
 ```
   
-### connect
+#### connect
 
 Connects to another LND peer.
 
@@ -52,7 +52,7 @@ Lightning.connect(args).then((resp)=>{
 })
 ```
 
-##### Arguments
+###### Arguments
 
 * `[addr]` Optional. TODO..  
 
@@ -64,35 +64,75 @@ Lightning.connect(args).then((resp)=>{
 * `[perm]` Optional. TODO..
 
 
-### getInfo
+#### getInfo
+Returns basic information related to the Lightning node.
+ 
+ ```
+ Lightning.getInfo().then((resp)=>{
+ 	.... 
+})
+ ```
 
-### walletBalance 
 
-### newAddress
+#### walletBalance 
+Returns the wallet's balance (total utxos, confirmed and unconfirmed).
 
-### listPeers
+ ```
+ Lightning.walletBalance().then((resp)=>{
+ 	.... 
+})
+ ```
 
-### openChannel
 
-### channelBalance
+#### newAddress
+Generates a new wallet address.
 
-### listChannels
+ ```
+ Lightning.newAddress(addressType).then((resp)=>{
+ 	.... 
+})
+ ```
+ 
+###### Arguments
 
-### addInvoice
+* `[addressType]` Optional. Either `Lightning.addressType.p2wkh` or `Lightning.addressType.np2wkh`. Defaults to `Lightning.addressType.p2wkh` 
 
-### decodePayReq
 
-### sendPayment
 
-### getChanInfo 
+#### listPeers
+Returns a list of all connected peers.
 
-### closeChannel
 
-### disconnect
+#### openChannel
+Attempts to open a channel to an existing peer.
+
+#### channelBalance
+Returns the total channel balance for all open channels.
+
+#### listChannels
+Returns a list of all open channels.
+
+#### addInvoice
+Adds a new invoice, expressing intent for a future payment.
+
+#### decodePayReq
+Decodes a payment request.
+
+#### sendPayment
+Sends a payment over Lightning.
+
+#### getChanInfo 
+Returns the latest authenticated state for a particular channel.
+
+#### closeChannel
+Attempts to close an existing channel.
+
+#### disconnect
+Disconnects from an existing peer.
 
 ## TODO:
 
-
+Implement remaining lightning functionality.
 
 
 

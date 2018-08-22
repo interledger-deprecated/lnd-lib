@@ -192,6 +192,25 @@ class Lightning {
     }
   }
 
+  async connect ({addr = null, pubkey = null, host = null, perm = false}) {
+    if (addr) {
+      let ar = addr.split('@')
+      pubkey = ar[0]
+      host = ar[1]
+    }
+    let opts = {}
+    opts.addr = { pubkey: pubkey, host: host }
+
+    if (perm) opts.perm = perm
+    console.log(opts)
+    try {
+      let result = await this.callSimple('connectPeer', opts)
+      return result
+    } catch (e) {
+      throw e
+    }
+  }
+
   async getInfo () {
     try {
       let result = await this.callSimple('GetInfo', {})
@@ -213,25 +232,6 @@ class Lightning {
   async newAddress (addressType) {
     try {
       let result = await this.callSimple('newAddress', {addressType: addressType})
-      return result
-    } catch (e) {
-      throw e
-    }
-  }
-
-  async connect ({addr = null, pubkey = null, host = null, perm = false}) {
-    if (addr) {
-      let ar = addr.split('@')
-      pubkey = ar[0]
-      host = ar[1]
-    }
-    let opts = {}
-    opts.addr = { pubkey: pubkey, host: host }
-
-    if (perm) opts.perm = perm
-    console.log(opts)
-    try {
-      let result = await this.callSimple('connectPeer', opts)
       return result
     } catch (e) {
       throw e
@@ -383,7 +383,7 @@ class Lightning {
     }
   }
 
-  async disconnect ({pub_key = null}) {
+  async disconnect ({pub_key}) {
     let opts = {pub_key: pub_key}
     try {
       let result = await this.callSimple('disconnectPeer', opts)
