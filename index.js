@@ -230,7 +230,7 @@ class Lightning {
   }
 
   async newAddress (addressType) {
-    addressType = addressType || this.addressType.p2wkh;
+    addressType = addressType || this.addressType.p2wkh
     try {
       let result = await this.callSimple('newAddress', {addressType: addressType})
       return result
