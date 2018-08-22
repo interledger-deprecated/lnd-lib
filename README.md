@@ -2,7 +2,7 @@
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/interledgerjs/lnd-lib.svg)](https://greenkeeper.io/)
 
-## Installation
+# Installation
 
 Install the package via `npm`:
 
@@ -10,7 +10,7 @@ Install the package via `npm`:
 npm install install lnd-lib --save 
 ```
 
-## Usage
+# Usage
 
 ```
 const lndLib = require('lnd-lib');
@@ -18,7 +18,7 @@ const Lightning = new lndLib.Lightning(...args);
 
 ```
 
-### Arguments
+## Arguments
 
 * `[certPath]` Optional. Path to certificate. Defaults to `~/.lnd/tls.cert` on Linux and `~/Library/Application Support/Lnd/tls.cert` on Mac.  
 
