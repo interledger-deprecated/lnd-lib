@@ -18,7 +18,7 @@ const Lightning = new lndLib.Lightning(...args);
 
 ```
 
-## Arguments
+### Arguments
 
 * `[certPath]` Optional. Path to certificate. Defaults to `~/.lnd/tls.cert` on Linux and `~/Library/Application Support/Lnd/tls.cert` on Mac.  
 
