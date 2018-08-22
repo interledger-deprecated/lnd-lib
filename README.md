@@ -9,16 +9,19 @@ Install the package via `npm`:
 ```
 npm install install lnd-lib --save 
 ```
+# Introduction
+
+Draws heavily on <https://github.com/lightningnetwork/lnd/blob/master/docs/grpc/javascript.md>, and <https://api.lightning.community/>. 
 
 # Usage
 
 ```
 const lndLib = require('lnd-lib');
-const Lightning = new lndLib.Lightning(...args);
+const Lightning = new lndLib.Lightning(args);
 
 ```
 
-#### Arguments
+##### Arguments
 
 * `[certPath]` Optional. Path to certificate. Defaults to `~/.lnd/tls.cert` on Linux and `~/Library/Application Support/Lnd/tls.cert` on Mac.  
 
@@ -27,19 +30,71 @@ const Lightning = new lndLib.Lightning(...args);
 * `[lndAddress]` Optional. Lnd address. Defaults to `localhost:10009`.  
 * `[protoPath]` Optional. Path to `rpc.proto`. Defaults to `./rpc.proto` (included in this repo).
 
-## Examples
+## Methods
 
-#### Initialize
+### initialize
 
-Fetches certificate, rpc.ptoto etc. and creates sets up an RPC connection to LND.  
+Fetches certificate, rpc.proto etc. and creates sets up an RPC connection to LND.  
 
 ```
 Lightning.initialize().then((resp)=>{
  	.... 
 })
 ```
+  
+### connect
 
-### 
+Connects to another LND peer.
+
+```
+Lightning.connect(args).then((resp)=>{
+ 	.... 
+})
+```
+
+##### Arguments
+
+* `[addr]` Optional. TODO..  
+
+	*(need to either have `[addr]` or `[pubkey]` and `[host]`)*
+
+* `[pubkey]` Optional. TODO..
+
+* `[host]` Optional. TODO..  
+* `[perm]` Optional. TODO..
+
+
+### getInfo
+
+### walletBalance 
+
+### newAddress
+
+### listPeers
+
+### openChannel
+
+### channelBalance
+
+### listChannels
+
+### addInvoice
+
+### decodePayReq
+
+### sendPayment
+
+### getChanInfo 
+
+### closeChannel
+
+### disconnect
+
+## TODO:
+
+
+
+
 
 
 
