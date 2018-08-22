@@ -11,11 +11,11 @@ const path = require('path')
 process.env.GRPC_SSL_CIPHER_SUITES = 'HIGH+ECDSA'
 
 class Lightning {
-  constructor (certPath, lndPath, protoPath, macaroonPath) {
-    this.certPath = certPath || null
-    this.macaroonPath = macaroonPath || null
-    this.lndPath = lndPath || 'localhost:10009'
-    this.protoPath = protoPath || path.join(__dirname, 'rpc.proto')
+  constructor (args) {
+    this.certPath = args.certPath || null
+    this.macaroonPath = args.macaroonPath || null
+    this.lndAddress = args.lndAddress || 'localhost:10009'
+    this.protoPath = args.protoPath || path.join(__dirname, 'rpc.proto')
 
     this.addressType = {
       p2wkh: 'p2wkh',
@@ -131,7 +131,7 @@ class Lightning {
       let sslCreds = grpc.credentials.createSsl(lndCert)
       let credentials = grpc.credentials.combineChannelCredentials(sslCreds, macaroonCreds)
 
-      this.lightning = new lnrpc.Lightning(this.lndPath, credentials)
+      this.lightning = new lnrpc.Lightning(this.lndAddress, credentials)
       this.initialized = true
       return true
     } catch (e) {
