@@ -18,7 +18,7 @@ const Lightning = new lndLib.Lightning(...args);
 
 ```
 
-### Arguments
+#### Arguments
 
 * `[certPath]` Optional. Path to certificate. Defaults to `~/.lnd/tls.cert` on Linux and `~/Library/Application Support/Lnd/tls.cert` on Mac.  
 
@@ -26,6 +26,21 @@ const Lightning = new lndLib.Lightning(...args);
 
 * `[lndAddress]` Optional. Lnd address. Defaults to `localhost:10009`.  
 * `[protoPath]` Optional. Path to `rpc.proto`. Defaults to `./rpc.proto` (included in this repo).
+
+## Examples
+
+#### Initialize
+
+Fetches certificate, rpc.ptoto etc. and creates sets up an RPC connection to LND.  
+
+```
+Lightning.initialize().then((resp)=>{
+ 	.... 
+})
+```
+
+### 
+
 
 
 
