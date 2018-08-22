@@ -117,18 +117,18 @@ Attempts to open a channel to an existing peer.
  
 ```
 Lightning.openChannel(
-	{
-		nodePubkey,
-		localFundingAmount, 
-		pushSatoshis, 
-		targetConf, 
-		satoshisPerByte, 
-		minHtlcMsat, 
-		_private, 
-		minHtlcMsat, 
-		remoteCsvDelay
-	},
-	statusCallback
+  {
+    nodePubkey,
+    localFundingAmount, 
+    pushSatoshis, 
+    targetConf, 
+    satoshisPerByte, 
+    minHtlcMsat, 
+    _private, 
+    minHtlcMsat, 
+    remoteCsvDelay
+  },
+  statusCallback
 ).then((resp)=>{
  	.... 
 });
@@ -215,13 +215,13 @@ Attempts to close an existing channel.
 
 ```
 Lightning.closeChannel(
-	{
-		chanId, 
-		channelPoint, 
-		force, 
-		targetConf, 
-		satoshisPerByte
-	}
+ {
+    chanId, 
+    channelPoint, 
+    force, 
+    targetConf, 
+    satoshisPerByte
+  }
 ).then((resp)=>{
  	.... 
 });
