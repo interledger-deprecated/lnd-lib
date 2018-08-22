@@ -11,11 +11,11 @@ const path = require('path')
 process.env.GRPC_SSL_CIPHER_SUITES = 'HIGH+ECDSA'
 
 class Lightning {
-  constructor (certPath, lndPath, protoPath, macaroonPath) {
-    this.certPath = certPath || null
-    this.macaroonPath = macaroonPath || null
-    this.lndPath = lndPath || 'localhost:10009'
-    this.protoPath = protoPath || path.join(__dirname, 'rpc.proto')
+  constructor (args) {
+    this.certPath = args.certPath || null
+    this.macaroonPath = args.macaroonPath || null
+    this.lndAddress = args.lndAddress || 'localhost:10009'
+    this.protoPath = args.protoPath || path.join(__dirname, 'rpc.proto')
 
     this.addressType = {
       p2wkh: 'p2wkh',
@@ -131,7 +131,7 @@ class Lightning {
       let sslCreds = grpc.credentials.createSsl(lndCert)
       let credentials = grpc.credentials.combineChannelCredentials(sslCreds, macaroonCreds)
 
-      this.lightning = new lnrpc.Lightning(this.lndPath, credentials)
+      this.lightning = new lnrpc.Lightning(this.lndAddress, credentials)
       this.initialized = true
       return true
     } catch (e) {
@@ -192,6 +192,25 @@ class Lightning {
     }
   }
 
+  async connect ({addr = null, pubKey = null, host = null, perm = false}) {
+    if (addr) {
+      let ar = addr.split('@')
+      pubKey = ar[0]
+      host = ar[1]
+    }
+    let opts = {}
+    opts.addr = { pubkey: pubKey, host: host }
+
+    if (perm) opts.perm = perm
+    console.log(opts)
+    try {
+      let result = await this.callSimple('connectPeer', opts)
+      return result
+    } catch (e) {
+      throw e
+    }
+  }
+
   async getInfo () {
     try {
       let result = await this.callSimple('GetInfo', {})
@@ -211,27 +230,9 @@ class Lightning {
   }
 
   async newAddress (addressType) {
+    addressType = addressType || this.addressType.p2wkh
     try {
       let result = await this.callSimple('newAddress', {addressType: addressType})
-      return result
-    } catch (e) {
-      throw e
-    }
-  }
-
-  async connect ({addr = null, pubkey = null, host = null, perm = false}) {
-    if (addr) {
-      let ar = addr.split('@')
-      pubkey = ar[0]
-      host = ar[1]
-    }
-    let opts = {}
-    opts.addr = { pubkey: pubkey, host: host }
-
-    if (perm) opts.perm = perm
-    console.log(opts)
-    try {
-      let result = await this.callSimple('connectPeer', opts)
       return result
     } catch (e) {
       throw e
@@ -335,8 +336,8 @@ class Lightning {
     }
   }
 
-  async sendPayment ({pay_req = null}) { //, dest = null, amt = 0
-    let opts = {payment_request: pay_req}
+  async sendPayment ({payReq = null}) { //, dest = null, amt = 0
+    let opts = {payment_request: payReq}
 
     try {
       let result = await this.callSimple('sendPaymentSync', opts)
@@ -383,8 +384,8 @@ class Lightning {
     }
   }
 
-  async disconnect ({pub_key = null}) {
-    let opts = {pub_key: pub_key}
+  async disconnect ({pubKey}) {
+    let opts = {pub_key: pubKey}
     try {
       let result = await this.callSimple('disconnectPeer', opts)
       return result
