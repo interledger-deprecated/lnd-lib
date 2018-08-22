@@ -89,7 +89,9 @@ Lightning.newAddress(addressType).then((resp)=>{
  	.... 
 });
 ```
-###### addressType:
+
+`[addressType]`:
+
 Either:
 
 * `Lightning.addressType.p2wkh` or 
