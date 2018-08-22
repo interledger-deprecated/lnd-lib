@@ -17,20 +17,16 @@ Draws heavily on <https://github.com/lightningnetwork/lnd/blob/master/docs/grpc/
 
 ```
 const lndLib = require('lnd-lib');
-const Lightning = new lndLib.Lightning(args);
+const Lightning = new lndLib.Lightning({certPath, macaroonPath, lndAddress, protoPath});
 
 ```
-
-##### args:
-
-`{certPath, macaroonPath, lndAddress, protoPath}`
 
 * `[certPath]` Optional. Path to certificate. Defaults to `~/.lnd/tls.cert` on Linux and `~/Library/Application Support/Lnd/tls.cert` on Mac.  
 
 * `[macaroonPath]` Optional. Macaroon Path. Defaults to `~/.lnd/admin.macaroon` on Linux and `~/Library/Application Support/admin.macaroon` on Mac.  
 
 * `[lndAddress]` Optional. Lnd address. Defaults to `localhost:10009`. 
-*  
+
 * `[protoPath]` Optional. Path to `rpc.proto`. Defaults to `./rpc.proto` (included in this repo).
 
 ## Methods
@@ -50,20 +46,16 @@ Lightning.initialize().then((resp)=>{
 Connects to another LND peer.
 
 ```
-Lightning.connect(args).then((resp)=>{
+Lightning.connect({addr, pubKey, host, perm}).then((resp)=>{
  	.... 
 })
 ```
 
-###### args:
-
-`{addr, pubkey, host, perm}`
-
 * `[addr]` Optional. TODO..  
 
-	*(need to either have `[addr]` or `[pubkey]` and `[host]`)*
+	*(need to either have `[addr]` or `[pubKey]` and `[host]`)*
 
-* `[pubkey]` Optional. TODO..
+* `[pubKey]` Optional. TODO..
 
 * `[host]` Optional. TODO..  
 * `[perm]` Optional. TODO..
@@ -117,32 +109,40 @@ Returns a list of all connected peers.
 });
  ```
 
+
 #### openChannel
 Attempts to open a channel to an existing peer.
  
 ```
-Lightning.openChannel(args,statusCallback).then((resp)=>{
+Lightning.openChannel(
+	{
+		nodePubkey,
+		localFundingAmount, 
+		pushSatoshis, 
+		targetConf, 
+		satoshisPerByte, 
+		minHtlcMsat, 
+		_private, 
+		minHtlcMsat, 
+		remoteCsvDelay
+	},
+	statusCallback
+).then((resp)=>{
  	.... 
 });
 ```
 
-###### args:
-
-`{nodePubkey, localFundingAmount, pushSatoshis, targetConf, satoshisPerByte, minHtlcMsat, _private, minHtlcMsat, remoteCsvDelay}`
-
 * `[nodePubkey]` TODO
 
 *  `[localFundingAmount]` TODO
-*  `[pushSatoshis]` TODO
-*  `[targetConf]` TODO
-*  `[satoshisPerByte]` TODO
-*  `[_private]` TODO
-*  `[minHtlcMsat]` TODO
-*  `[remoteCsvDelay]` TODO
-
-###### statusCallback:
-
-TODO
+*  `[pushSatoshis]` Optional. TODO
+*  `[targetConf]` Optional. TODO
+*  `[satoshisPerByte]` Optional. TODO
+*  `[_private]` Optional. TODO
+*  `[minHtlcMsat]` Optional. TODO
+*  `[remoteCsvDelay]` Optional. TODO
+  
+* `[statusCallback]` TODO
 
 
 #### channelBalance
@@ -166,20 +166,82 @@ Lightning.listChannels().then((resp)=>{
 #### addInvoice
 Adds a new invoice, expressing intent for a future payment.
 
+```
+Lightning.addInvoice({amt}).then((resp)=>{
+ 	.... 
+});
+```
+
+* `[amt]` TODO
+
 #### decodePayReq
 Decodes a payment request.
+
+```
+Lightning.decodePayReq({payReq}).then((resp)=>{
+ 	.... 
+});
+```
+
+* `[payReq]` TODO
 
 #### sendPayment
 Sends a payment over Lightning.
 
+```
+Lightning.sendPayment({payReq}).then((resp)=>{
+ 	.... 
+});
+```
+
+* `[payReq]` TODO
+
+
 #### getChanInfo 
 Returns the latest authenticated state for a particular channel.
+
+```
+Lightning.getChanInfo({chanId}).then((resp)=>{
+ 	.... 
+});
+```
+
+* `[chanId]` TODO
 
 #### closeChannel
 Attempts to close an existing channel.
 
+```
+Lightning.closeChannel(
+	{
+		chanId, 
+		channelPoint, 
+		force, 
+		targetConf, 
+		satoshisPerByte
+	}
+).then((resp)=>{
+ 	.... 
+});
+```
+
+* `[chanId]` TODO
+
+* `[channelPoint]` TODO
+* `[force]` TODO
+* `[targetConf]` TODO
+* `[satoshisPerByte]` TODO
+
 #### disconnect
 Disconnects from an existing peer.
+
+```
+Lightning.disconnect({pubKey}).then((resp)=>{
+ 	.... 
+});
+```
+
+* `[pubKey]` TODO
 
 ## TODO:
 

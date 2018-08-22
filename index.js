@@ -192,14 +192,14 @@ class Lightning {
     }
   }
 
-  async connect ({addr = null, pubkey = null, host = null, perm = false}) {
+  async connect ({addr = null, pubKey = null, host = null, perm = false}) {
     if (addr) {
       let ar = addr.split('@')
-      pubkey = ar[0]
+      pubKey = ar[0]
       host = ar[1]
     }
     let opts = {}
-    opts.addr = { pubkey: pubkey, host: host }
+    opts.addr = { pubkey: pubKey, host: host }
 
     if (perm) opts.perm = perm
     console.log(opts)
@@ -230,6 +230,7 @@ class Lightning {
   }
 
   async newAddress (addressType) {
+    addressType = addressType || this.addressType.p2wkh;
     try {
       let result = await this.callSimple('newAddress', {addressType: addressType})
       return result
@@ -335,8 +336,8 @@ class Lightning {
     }
   }
 
-  async sendPayment ({pay_req = null}) { //, dest = null, amt = 0
-    let opts = {payment_request: pay_req}
+  async sendPayment ({payReq = null}) { //, dest = null, amt = 0
+    let opts = {payment_request: payReq}
 
     try {
       let result = await this.callSimple('sendPaymentSync', opts)
@@ -383,8 +384,8 @@ class Lightning {
     }
   }
 
-  async disconnect ({pub_key}) {
-    let opts = {pub_key: pub_key}
+  async disconnect ({pubKey}) {
+    let opts = {pub_key: pubKey}
     try {
       let result = await this.callSimple('disconnectPeer', opts)
       return result
