@@ -21,13 +21,16 @@ const Lightning = new lndLib.Lightning(args);
 
 ```
 
-##### Arguments
+##### args:
+
+`{certPath, macaroonPath, lndAddress, protoPath}`
 
 * `[certPath]` Optional. Path to certificate. Defaults to `~/.lnd/tls.cert` on Linux and `~/Library/Application Support/Lnd/tls.cert` on Mac.  
 
 * `[macaroonPath]` Optional. Macaroon Path. Defaults to `~/.lnd/admin.macaroon` on Linux and `~/Library/Application Support/admin.macaroon` on Mac.  
 
-* `[lndAddress]` Optional. Lnd address. Defaults to `localhost:10009`.  
+* `[lndAddress]` Optional. Lnd address. Defaults to `localhost:10009`. 
+*  
 * `[protoPath]` Optional. Path to `rpc.proto`. Defaults to `./rpc.proto` (included in this repo).
 
 ## Methods
@@ -52,7 +55,9 @@ Lightning.connect(args).then((resp)=>{
 })
 ```
 
-###### Arguments
+###### args:
+
+`{addr, pubkey, host, perm}`
 
 * `[addr]` Optional. TODO..  
 
@@ -63,54 +68,100 @@ Lightning.connect(args).then((resp)=>{
 * `[host]` Optional. TODO..  
 * `[perm]` Optional. TODO..
 
-
+  
 #### getInfo
 Returns basic information related to the Lightning node.
  
- ```
- Lightning.getInfo().then((resp)=>{
- 	.... 
+```
+Lightning.getInfo().then((resp)=>{
+	.... 
 })
- ```
+```
 
 
 #### walletBalance 
 Returns the wallet's balance (total utxos, confirmed and unconfirmed).
 
- ```
- Lightning.walletBalance().then((resp)=>{
+```
+Lightning.walletBalance().then((resp)=>{
  	.... 
-})
- ```
+});
+```
 
 
 #### newAddress
 Generates a new wallet address.
 
- ```
- Lightning.newAddress(addressType).then((resp)=>{
+```
+Lightning.newAddress(addressType).then((resp)=>{
  	.... 
-})
- ```
- 
-###### Arguments
+});
+```
+###### addressType:
+Optional. Either:
 
-* `[addressType]` Optional. Either `Lightning.addressType.p2wkh` or `Lightning.addressType.np2wkh`. Defaults to `Lightning.addressType.p2wkh` 
+* `Lightning.addressType.p2wkh` or 
+
+* `Lightning.addressType.np2wkh`. 
+
+* Defaults to `Lightning.addressType.p2wkh` 
 
 
 
 #### listPeers
 Returns a list of all connected peers.
 
+ ```
+ Lightning.listPeers().then((resp)=>{
+ 	.... 
+});
+ ```
 
 #### openChannel
 Attempts to open a channel to an existing peer.
+ 
+```
+Lightning.openChannel(args,statusCallback).then((resp)=>{
+ 	.... 
+});
+```
+
+###### args:
+
+`{nodePubkey, localFundingAmount, pushSatoshis, targetConf, satoshisPerByte, minHtlcMsat, _private, minHtlcMsat, remoteCsvDelay}`
+
+* `[nodePubkey]` TODO
+
+*  `[localFundingAmount]` TODO
+*  `[pushSatoshis]` TODO
+*  `[targetConf]` TODO
+*  `[satoshisPerByte]` TODO
+*  `[_private]` TODO
+*  `[minHtlcMsat]` TODO
+*  `[remoteCsvDelay]` TODO
+
+###### statusCallback:
+
+TODO
+
 
 #### channelBalance
 Returns the total channel balance for all open channels.
 
+```
+Lightning.channelBalance().then((resp)=>{
+ 	.... 
+});
+```
+
 #### listChannels
 Returns a list of all open channels.
+
+```
+Lightning.listChannels().then((resp)=>{
+ 	.... 
+});
+```
 
 #### addInvoice
 Adds a new invoice, expressing intent for a future payment.
