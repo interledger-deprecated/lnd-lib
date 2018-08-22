@@ -16,8 +16,8 @@ Draws heavily on <https://github.com/lightningnetwork/lnd/blob/master/docs/grpc/
 # Usage
 
 ```
-const lndLib = require('lnd-lib');
-const Lightning = new lndLib.Lightning({certPath, macaroonPath, lndAddress, protoPath});
+const lndLib = require('lnd-lib')
+const Lightning = new lndLib.Lightning({certPath, macaroonPath, lndAddress, protoPath})
 
 ```
 
