@@ -60,7 +60,7 @@ class Lightning {
 
   _loadLndDescriptor () {
     return new Promise((resolve, reject) => {
-      let opts = {keepCase: true, longs: String, enums: String, defaults: true, oneofs: true}
+      let opts = { keepCase: true, longs: String, enums: String, defaults: true, oneofs: true }
       protoLoader.load(this.protoPath, opts).then((packageDefinition) => {
         let lnrpcDescriptor = grpc.loadPackageDefinition(packageDefinition)
         let lnrpc = lnrpcDescriptor.lnrpc
@@ -192,7 +192,7 @@ class Lightning {
     }
   }
 
-  async connect ({addr = null, pubKey = null, host = null, perm = false}) {
+  async connect ({ addr = null, pubKey = null, host = null, perm = false }) {
     if (addr) {
       let ar = addr.split('@')
       pubKey = ar[0]
@@ -232,7 +232,7 @@ class Lightning {
   async newAddress (addressType) {
     addressType = addressType || this.addressType.p2wkh
     try {
-      let result = await this.callSimple('newAddress', {addressType: addressType})
+      let result = await this.callSimple('newAddress', { addressType })
       return result
     } catch (e) {
       throw e
@@ -317,8 +317,8 @@ class Lightning {
   }
 
   // keeping this simple for now - just accepting amt
-  async addInvoice ({amt = 0}) {
-    let opts = {value: amt}
+  async addInvoice ({ amt = 0 }) {
+    let opts = { value: amt }
     try {
       let result = await this.callSimple('addInvoice', opts)
       return result
@@ -327,17 +327,17 @@ class Lightning {
     }
   }
 
-  async decodePayReq ({payReq}) {
+  async decodePayReq ({ payReq }) {
     try {
-      let result = await this.callSimple('decodePayReq', {payReq})
+      let result = await this.callSimple('decodePayReq', { payReq })
       return result
     } catch (e) {
       throw e
     }
   }
 
-  async sendPayment ({payReq = null}) { //, dest = null, amt = 0
-    let opts = {payment_request: payReq}
+  async sendPayment ({ payReq = null }) { //, dest = null, amt = 0
+    let opts = { payment_request: payReq }
 
     try {
       let result = await this.callSimple('sendPaymentSync', opts)
@@ -347,9 +347,9 @@ class Lightning {
     }
   }
 
-  async getChanInfo ({chanId}) {
+  async getChanInfo ({ chanId }) {
     try {
-      let result = await this.callSimple('getChanInfo', {chan_id: chanId})
+      let result = await this.callSimple('getChanInfo', { chan_id: chanId })
       return result
     } catch (e) {
       throw e
@@ -364,7 +364,7 @@ class Lightning {
     }
   }
 
-  async closeChannel ({chanId = null, channelPoint = null, force = false, targetConf = 0, satoshisPerByte = 0}, statusCallback) {
+  async closeChannel ({ chanId = null, channelPoint = null, force = false, targetConf = 0, satoshisPerByte = 0 }, statusCallback) {
     let opts = {}
     if (channelPoint) opts.channel_point = channelPoint
     if (force) opts.force = force
@@ -372,7 +372,7 @@ class Lightning {
     if (satoshisPerByte) opts.sat_per_byte = satoshisPerByte
     try {
       if (chanId && !opts.channel_point) {
-        let channelInfo = await this.getChanInfo({chan_id: chanId})
+        let channelInfo = await this.getChanInfo({ chan_id: chanId })
         opts.channel_point = channelInfo.chan_point
       }
       opts.channel_point = this.formatChannelPoint(opts.channel_point)
@@ -384,8 +384,8 @@ class Lightning {
     }
   }
 
-  async disconnect ({pubKey}) {
-    let opts = {pub_key: pubKey}
+  async disconnect ({ pubKey }) {
+    let opts = { pub_key: pubKey }
     try {
       let result = await this.callSimple('disconnectPeer', opts)
       return result
